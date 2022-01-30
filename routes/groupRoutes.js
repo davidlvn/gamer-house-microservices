@@ -38,13 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var groupController_1 = require("../controllers/groupController");
-var authenticationService_1 = require("../services/authenticationService");
 var router = express_1.Router();
-router.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var gamerId;
+router.get('/:gamerId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        gamerId = authenticationService_1.getPayload(req.accessToken).id;
-        groupController_1.getGroups(gamerId)
+        groupController_1.getGroups(req.params.gamerId)
             .then(function (gamer) { return res.status(200).json(gamer); })
             .catch(function (e) { return res.status(500).json({ error: "There isn't any existing group" }); });
         return [2 /*return*/];
@@ -58,15 +55,14 @@ router.get('/all', function (req, res) { return __awaiter(void 0, void 0, void 0
         return [2 /*return*/];
     });
 }); });
-router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, owner;
+router.post('/:gamerId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name;
     return __generator(this, function (_a) {
         name = req.body.name;
         if (!name || name.length < 1) {
             return [2 /*return*/, res.status(500).json({ error: 'The name is empty!' })];
         }
-        owner = authenticationService_1.getPayload(req.accessToken).id;
-        groupController_1.createGroup(name, owner)
+        groupController_1.createGroup(name, req.params.gamerId)
             .then(function (group) { return res.status(201).json(group); })
             .catch(function (e) {
             return res.status(500).json({ error: "The group could not be created: " + e.message });
@@ -74,29 +70,27 @@ router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, 
         return [2 /*return*/];
     });
 }); });
-router.post('/join', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var groupId, gamerId;
+router.post('/join/:gamerId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var groupId;
     return __generator(this, function (_a) {
         groupId = req.body.groupId;
         if (!groupId) {
             return [2 /*return*/, res.status(500).json({ error: 'The group id is undefined!' })];
         }
-        gamerId = authenticationService_1.getPayload(req.accessToken).id;
-        groupController_1.addGamerToGroup(gamerId, groupId)
+        groupController_1.addGamerToGroup(req.params.gamerId, groupId)
             .then(function () { return res.status(200).send(true); })
             .catch(function (e) { return res.status(500).json({ error: "An error occured: " + e.message }); });
         return [2 /*return*/];
     });
 }); });
-router.delete('/leave/:groupId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var groupId, gamerId;
+router.delete('/leave/:gamerId/:groupId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var groupId;
     return __generator(this, function (_a) {
         groupId = req.params.groupId;
         if (!groupId) {
             return [2 /*return*/, res.status(500).json({ error: 'The group id is undefined!' })];
         }
-        gamerId = authenticationService_1.getPayload(req.accessToken).id;
-        groupController_1.removeGamerFromGroup(gamerId, groupId)
+        groupController_1.removeGamerFromGroup(req.params.gamerId, groupId)
             .then(function () { return res.status(200).send(true); })
             .catch(function (e) { return res.status(500).json({ error: "An error occured" }); });
         return [2 /*return*/];
