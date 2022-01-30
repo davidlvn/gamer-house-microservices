@@ -49,24 +49,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var postController_1 = require("../controllers/postController");
-var authenticationService_1 = require("../services/authenticationService");
 var router = express_1.Router();
-router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var authorization, accessToken, payload, postArgs, post, e_1;
+router.post('/:gamerId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var postArgs, post, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                authorization = req.headers.authorization;
-                if (!authorization) {
-                    return [2 /*return*/, res.status(500).json('No authorization header')];
-                }
-                accessToken = authorization.replace('AccessToken ', '');
-                if (!accessToken) {
-                    return [2 /*return*/, res.status(500).send('No access token')];
-                }
-                payload = authenticationService_1.getPayload(accessToken);
-                postArgs = __assign({ writer: payload.id }, req.body);
+                postArgs = __assign({ writer: req.params.gamerId }, req.body);
                 return [4 /*yield*/, postController_1.createPost(postArgs)];
             case 1:
                 post = _a.sent();
