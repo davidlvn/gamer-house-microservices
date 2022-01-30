@@ -49,12 +49,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var commentController_1 = require("../controllers/commentController");
-var authenticationService_1 = require("../services/authenticationService");
 var commentRouter = express_1.Router();
-commentRouter.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+commentRouter.post('/:writerId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var writer, commentArgs;
     return __generator(this, function (_a) {
-        writer = authenticationService_1.getPayload(req.accessToken).id;
+        writer = req.params.writerId;
         commentArgs = __assign({ writer: writer }, req.body);
         commentController_1.createComment(commentArgs)
             .then(function (comment) { return res.status(201).json(comment); })
