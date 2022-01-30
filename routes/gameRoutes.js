@@ -41,8 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var gameController_1 = require("../controllers/gameController");
-var authenticationMiddleware_1 = __importDefault(require("../middleware/authenticationMiddleware"));
-var authenticationService_1 = require("../services/authenticationService");
 var router = express_1.Router();
 router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var game, e_1;
@@ -63,14 +61,13 @@ router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); });
-router.put('/', authenticationMiddleware_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.put('/:playerId/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var payload, game, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                payload = authenticationService_1.getPayload(req.accessToken);
-                return [4 /*yield*/, gameController_1.addGameToGamer(payload.id, req.body)];
+                return [4 /*yield*/, gameController_1.addGameToGamer(req.params.playerId, req.body)];
             case 1:
                 game = _a.sent();
                 res.status(201).json(game);
@@ -83,14 +80,13 @@ router.put('/', authenticationMiddleware_1.default, function (req, res) { return
         }
     });
 }); });
-router.delete('/:id', authenticationMiddleware_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.delete('/:playerId/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var payload, game, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                payload = authenticationService_1.getPayload(req.accessToken);
-                return [4 /*yield*/, gameController_1.removeGameFromGamer(payload.id, req.params.id)];
+                return [4 /*yield*/, gameController_1.removeGameFromGamer(req.params.playerId, req.params.id)];
             case 1:
                 game = _a.sent();
                 res.status(201).json(game);
