@@ -14,6 +14,6 @@ exports.SECRET_ACCESS_TOKEN = process.env.SECRET_ACCESS_TOKEN;
 /** Default App URL */
 exports.DEFAULT_APP_URL = process.env.DEFAULT_APP_URL;
 /** Default port */
-exports.DEFAULT_PORT = 5000;
+exports.DEFAULT_PORT = 3000;
 /** Default running environment */
 exports.DEFAULT_ENVIRONMENT = 'local';
