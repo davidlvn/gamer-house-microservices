@@ -61,13 +61,13 @@ router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); });
-router.put('/:playerId/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.put('/:gamerId/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var payload, game, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, gameController_1.addGameToGamer(req.params.playerId, req.body)];
+                return [4 /*yield*/, gameController_1.addGameToGamer(req.params.gamerId, req.body)];
             case 1:
                 game = _a.sent();
                 res.status(201).json(game);
@@ -80,13 +80,13 @@ router.put('/:playerId/', function (req, res) { return __awaiter(void 0, void 0,
         }
     });
 }); });
-router.delete('/:playerId/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.delete('/:gamerId/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var payload, game, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, gameController_1.removeGameFromGamer(req.params.playerId, req.params.id)];
+                return [4 /*yield*/, gameController_1.removeGameFromGamer(req.params.gamerId, req.params.id)];
             case 1:
                 game = _a.sent();
                 res.status(201).json(game);
